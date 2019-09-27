@@ -21,8 +21,7 @@ namespace BusTicketBookingSystem.Controllers
             var tours = db.Tours.Include(t => t.Bus).Include(t => t.City);
             return View(tours.ToList());
         }
-
-       
+     
 
         // GET: Tours/Details/5
         [Authorize]
@@ -133,6 +132,37 @@ namespace BusTicketBookingSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //
+        [Authorize]
+        public ActionResult Reserve(int id)
+        {
+            Tour tour = db.Tours.Find(id);
+            if (tour != null)
+            {
+                return View(tour);
+            }
+            return HttpNotFound();
+        }
+
+        [HttpPost, ActionName("Reserve")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult CompleteBooking(int id)
+        {
+            Reservation res = new Reservation();
+            Tour tour = db.Tours.Find(id);
+            var r =  tour.NewReservation(tour.TourId, User.Identity.Name);
+            var book = db.Reservations.OrderByDescending(x => x.TourId).First(i => i.TourId == id && i.UserName == User.Identity.Name);
+            if (r)
+            {
+                 res.ConfirmReservation(book, book.UserName);
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", r.ToString());
+            return View(tour);
+        }
+        //
 
         protected override void Dispose(bool disposing)
         {

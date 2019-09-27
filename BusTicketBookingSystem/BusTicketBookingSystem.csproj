@@ -297,6 +297,7 @@
     <Content Include="Views\Tours\Details.cshtml" />
     <Content Include="Views\Tours\Edit.cshtml" />
     <Content Include="Views\Tours\Index.cshtml" />
+    <Content Include="Views\Tours\Reserve.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

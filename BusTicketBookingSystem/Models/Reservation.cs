@@ -11,7 +11,8 @@ namespace BusTicketBookingSystem.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Text;
+
     public partial class Reservation
     {
         public int ReservationId { get; set; }
@@ -20,5 +21,10 @@ namespace BusTicketBookingSystem.Models
         public string UserName { get; set; }
     
         public virtual Tour Tour { get; set; }
+
+        public void ConfirmReservation(Reservation res, string to)
+        {
+
+        }
     }
 }

@@ -33,5 +33,40 @@ namespace BusTicketBookingSystem.Models
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }
+
+        #region Methods
+        public void ConfigureSeats(int BusId)
+        {
+            TicketBookingModelEntities db = new TicketBookingModelEntities();
+
+            var bus = db.Buses.Find(BusId);
+
+            this.SeatsAvailable = bus.NrSeats;
+        }
+
+        public bool NewReservation(int id, string un)
+        {
+            TicketBookingModelEntities db = new TicketBookingModelEntities();
+            Tour tour = db.Tours.Find(id);
+
+            if (tour != null)
+            {
+                if (tour.SeatsAvailable > 0)
+                {
+                    Reservation res = new Reservation
+                    {
+                        ReservationDate = DateTime.Now,
+                        TourId = tour.TourId,
+                        UserName = un
+                    };
+                    tour.SeatsAvailable--;
+                    db.Reservations.Add(res);
+                     db.SaveChangesAsync();
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }
