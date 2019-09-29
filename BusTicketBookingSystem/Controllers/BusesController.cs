@@ -10,6 +10,7 @@ using BusTicketBookingSystem.Models;
 
 namespace BusTicketBookingSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class BusesController : Controller
     {
         private TicketBookingModelEntities db = new TicketBookingModelEntities();
@@ -50,17 +51,9 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                //try
-                //{
                     db.Buses.Add(bus);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
-                //}
-                //catch(Exception ex)
-                //{
-                //    ex.Message.ToString();
-                //}
-                
+                    return RedirectToAction("Index");              
             }
 
             return View(bus);

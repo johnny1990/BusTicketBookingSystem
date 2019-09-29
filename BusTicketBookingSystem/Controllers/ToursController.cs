@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace BusTicketBookingSystem.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class ToursController : Controller
     {
         private TicketBookingModelEntities db = new TicketBookingModelEntities();

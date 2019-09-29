@@ -10,6 +10,7 @@ using BusTicketBookingSystem.Models;
 
 namespace BusTicketBookingSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
         private TicketBookingModelEntities db = new TicketBookingModelEntities();
