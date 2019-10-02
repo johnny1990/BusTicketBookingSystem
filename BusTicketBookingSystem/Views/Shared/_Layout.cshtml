@@ -22,19 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-
-                    @*@if (HttpContext.Current.User.IsInRole("Admin"))
-                    {*@
                         <li>@Html.ActionLink("Buses", "Index", "Buses")</li>
                         <li>@Html.ActionLink("Cities", "Index", "Cities")</li>
                         <li>@Html.ActionLink("Reservations", "Index", "Reservations")</li>
-                    @*}*@
-
-                    @*@if (HttpContext.Current.User.Identity.IsAuthenticated)
-                    {*@
                         <li>@Html.ActionLink("Upcoming routes", "Index", "Tours")</li>
-                    @*}*@
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
