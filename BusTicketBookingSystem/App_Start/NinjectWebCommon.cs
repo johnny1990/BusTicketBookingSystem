@@ -47,6 +47,7 @@ namespace BusTicketBookingSystem.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 kernel.Bind<IBusRepository>().To<BusRepository>();
+                kernel.Bind<ICityRepository>().To<CityRepository>();
 
                 RegisterServices(kernel);
                 return kernel;

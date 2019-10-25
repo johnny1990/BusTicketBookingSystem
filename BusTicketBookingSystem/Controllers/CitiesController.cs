@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BusTicketBookingSystem.Contracts;
 using BusTicketBookingSystem.Models;
 
 namespace BusTicketBookingSystem.Controllers
@@ -13,12 +14,22 @@ namespace BusTicketBookingSystem.Controllers
     [Authorize(Roles = "Admin")]
     public class CitiesController : Controller
     {
-        private TicketBookingModelEntities db = new TicketBookingModelEntities();
+        private readonly ICityRepository repository;
+
+        public CitiesController(ICityRepository objIrepository)
+        {
+            repository = objIrepository;
+        }
+
+        public CitiesController()
+        {
+
+        }
 
         // GET: Cities
         public ActionResult Index()
         {
-            return View(db.Cities.ToList());
+            return View(repository.All.ToList());
         }
 
         // GET: Cities/Details/5
@@ -28,7 +39,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
+            City city = repository.Find(id);
             if (city == null)
             {
                 return HttpNotFound();
@@ -51,8 +62,8 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Cities.Add(city);
-                db.SaveChanges();
+                repository.Insert(city);
+                repository.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +77,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
+            City city = repository.Find(id);
             if (city == null)
             {
                 return HttpNotFound();
@@ -83,8 +94,8 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(city).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Update(city);
+                repository.Save();
                 return RedirectToAction("Index");
             }
             return View(city);
@@ -97,7 +108,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            City city = db.Cities.Find(id);
+            City city = repository.Find(id);
             if (city == null)
             {
                 return HttpNotFound();
@@ -110,9 +121,8 @@ namespace BusTicketBookingSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            City city = db.Cities.Find(id);
-            db.Cities.Remove(city);
-            db.SaveChanges();
+            repository.Delete(id);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +130,7 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repository.Dispose();
             }
             base.Dispose(disposing);
         }
