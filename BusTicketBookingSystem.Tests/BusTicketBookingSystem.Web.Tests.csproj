@@ -99,9 +99,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusTicketBookingSystem\BusTicketBookingSystem.csproj">
+    <ProjectReference Include="..\BusTicketBookingSystem\BusTicketBookingSystem.Web.csproj">
       <Project>{EEDDCE2F-9B1D-4D35-8A6A-960E3C546181}</Project>
-      <Name>BusTicketBookingSystem</Name>
+      <Name>BusTicketBookingSystem.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
