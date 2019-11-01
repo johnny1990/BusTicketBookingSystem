@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BusTicketBookingSystem.Repository.Repository
+namespace BusTicketBookingSystem.Repository.Repositories
 {
     public class BusRepository : IBusRepository
     {

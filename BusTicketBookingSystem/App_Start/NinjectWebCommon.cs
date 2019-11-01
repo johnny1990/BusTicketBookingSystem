@@ -6,7 +6,7 @@ namespace BusTicketBookingSystem.App_Start
     using System;
     using System.Web;
     using BusTicketBookingSystem.Repository.Interfaces;
-    using BusTicketBookingSystem.Repository.Repository;
+    using BusTicketBookingSystem.Repository.Repositories;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
