@@ -1,4 +1,5 @@
-﻿using BusTicketBookingSystem.Models;
+﻿using BusTicketBookingSystem.Entities.Models;
+using BusTicketBookingSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;

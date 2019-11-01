@@ -182,9 +182,6 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Contracts\IBusRepository.cs" />
-    <Compile Include="Contracts\ICityRepository.cs" />
-    <Compile Include="Contracts\IReservationsRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -195,40 +192,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Bus.cs">
-      <DependentUpon>TicketBookingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\City.cs">
-      <DependentUpon>TicketBookingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Reservation.cs">
-      <DependentUpon>TicketBookingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TicketBookingModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TicketBookingModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TicketBookingModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TicketBookingModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TicketBookingModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TicketBookingModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tour.cs">
-      <DependentUpon>TicketBookingModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ToursController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BusRepository.cs" />
-    <Compile Include="Repository\CityRepository.cs" />
-    <Compile Include="Repository\ReservationsRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -245,25 +212,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\1.jpg" />
-    <Content Include="Models\TicketBookingModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketBookingModel.edmx</DependentUpon>
-      <LastGenOutput>TicketBookingModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TicketBookingModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TicketBookingModel.edmx</DependentUpon>
-      <LastGenOutput>TicketBookingModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\TicketBookingModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TicketBookingModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\TicketBookingModel.edmx.diagram">
-      <DependentUpon>TicketBookingModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -347,6 +297,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusTicketBookingSystem.Entities\BusTicketBookingSystem.Entities.csproj">
+      <Project>{5d96fcc2-5ee5-4ecd-addc-897afdad5911}</Project>
+      <Name>BusTicketBookingSystem.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusTicketBookingSystem.Repository\BusTicketBookingSystem.Repository.csproj">
+      <Project>{8087DDC3-DE24-4164-920D-6C13D0F69F71}</Project>
+      <Name>BusTicketBookingSystem.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

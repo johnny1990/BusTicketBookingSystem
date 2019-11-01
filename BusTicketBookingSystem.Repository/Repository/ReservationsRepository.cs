@@ -1,11 +1,11 @@
-﻿using BusTicketBookingSystem.Contracts;
-using BusTicketBookingSystem.Models;
+﻿using BusTicketBookingSystem.Entities.Models;
+using BusTicketBookingSystem.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BusTicketBookingSystem.Repository
+namespace BusTicketBookingSystem.Repository.Repository
 {
     public class ReservationsRepository : IReservationsRepository
     {

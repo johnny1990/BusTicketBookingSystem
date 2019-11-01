@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusTicketBookingSystem.Models
+namespace BusTicketBookingSystem.Entities.Models
 {
     using System;
     using System.Data.Entity;

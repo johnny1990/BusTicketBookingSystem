@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusTicketBookingSystem.Models
+namespace BusTicketBookingSystem.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Tour
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,17 +19,13 @@ namespace BusTicketBookingSystem.Models
         {
             this.Reservations = new HashSet<Reservation>();
         }
-        [DisplayName("Id")]
+    
         public int TourId { get; set; }
-        [DisplayName("Date")]
         public System.DateTime TourDate { get; set; }
-        [DisplayName("City")]
         public int CityId { get; set; }
         public string Departure { get; set; }
         public string Arrival { get; set; }
-        [DisplayName("Bus")]
         public int BusId { get; set; }
-        [DisplayName("Available Seats")]
         public int SeatsAvailable { get; set; }
         public decimal Price { get; set; }
     
@@ -66,7 +61,7 @@ namespace BusTicketBookingSystem.Models
                     };
                     tour.SeatsAvailable--;
                     db.Reservations.Add(res);
-                     db.SaveChangesAsync();
+                    db.SaveChangesAsync();
                     return true;
                 }
             }

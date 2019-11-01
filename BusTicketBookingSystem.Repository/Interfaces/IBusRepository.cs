@@ -1,11 +1,12 @@
-﻿using BusTicketBookingSystem.Models;
+﻿
+using BusTicketBookingSystem.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusTicketBookingSystem.Contracts
+namespace BusTicketBookingSystem.Repository.Interfaces
 {
     public interface IBusRepository : IDisposable
     {

@@ -7,22 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusTicketBookingSystem.Models
+namespace BusTicketBookingSystem.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Text;
-
+    
     public partial class Reservation
     {
-        [DisplayName("Id")]
         public int ReservationId { get; set; }
-        [DisplayName("Date")]
         public System.DateTime ReservationDate { get; set; }
-        [DisplayName("Tour")]
         public int TourId { get; set; }
-        [DisplayName("User name")]
         public string UserName { get; set; }
     
         public virtual Tour Tour { get; set; }

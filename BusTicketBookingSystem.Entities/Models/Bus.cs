@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BusTicketBookingSystem.Models
+namespace BusTicketBookingSystem.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Bus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +19,9 @@ namespace BusTicketBookingSystem.Models
         {
             this.Tours = new HashSet<Tour>();
         }
-        [DisplayName("Id")]
+    
         public int BusId { get; set; }
-        [DisplayName("Nr reg")]
         public string NrReg { get; set; }
-        [DisplayName("Nr seats")]
         public int NrSeats { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BusTicketBookingSystem.Entities.Models;
 using BusTicketBookingSystem.Models;
 
 namespace BusTicketBookingSystem.Controllers

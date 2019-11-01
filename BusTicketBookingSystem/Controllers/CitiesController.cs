@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BusTicketBookingSystem.Contracts;
-using BusTicketBookingSystem.Models;
+using BusTicketBookingSystem.Entities.Models;
+using BusTicketBookingSystem.Repository.Interfaces;
 
 namespace BusTicketBookingSystem.Controllers
 {
