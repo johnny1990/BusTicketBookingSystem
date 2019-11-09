@@ -38,31 +38,6 @@ namespace BusTicketBookingSystem.Controllers
             return View(reservation);
         }
 
-        // GET: Reservations/Create
-        public ActionResult Create()
-        {
-            ViewBag.TourId = new SelectList(db.Tours, "TourId", "Departure");
-            return View();
-        }
-
-        // POST: Reservations/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReservationId,ReservationDate,TourId,UserName")] Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.TourId = new SelectList(db.Tours, "TourId", "Departure", reservation.TourId);
-            return View(reservation);
-        }
-
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
