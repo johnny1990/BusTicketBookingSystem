@@ -59,9 +59,10 @@
             @Html.DisplayFor(modelItem => item.City.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TourId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TourId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TourId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.TourId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TourId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.TourId })   |
+            @Html.ActionLink("Reserve", "Reserve", new { id = item.TourId })
         </td>
     </tr>
 }
