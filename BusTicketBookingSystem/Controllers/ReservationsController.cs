@@ -7,20 +7,26 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BusTicketBookingSystem.Entities.Models;
-using BusTicketBookingSystem.Models;
+using BusTicketBookingSystem.Repository.Interfaces;
 
 namespace BusTicketBookingSystem.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ReservationsController : Controller
     {
-        private TicketBookingModelEntities db = new TicketBookingModelEntities();
+        //private TicketBookingModelEntities db = new TicketBookingModelEntities();
+
+        private readonly IReservationsRepository repository;
+
+        public ReservationsController(IReservationsRepository objIrepository)
+        {
+            repository = objIrepository;
+        }
 
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservations = db.Reservations.Include(r => r.Tour);
-            return View(reservations.ToList());
+            return View(repository.All.ToList());
         }
 
         // GET: Reservations/Details/5
@@ -30,7 +36,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = repository.Find(id);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -45,12 +51,12 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = repository.Find(id);
             if (reservation == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TourId = new SelectList(db.Tours, "TourId", "Departure", reservation.TourId);
+          
             return View(reservation);
         }
 
@@ -63,11 +69,10 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(reservation).State = EntityState.Modified;
-                db.SaveChanges();
+                repository.Update(reservation);
+                repository.Save();
                 return RedirectToAction("Index");
             }
-            ViewBag.TourId = new SelectList(db.Tours, "TourId", "Departure", reservation.TourId);
             return View(reservation);
         }
 
@@ -78,7 +83,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservations.Find(id);
+            Reservation reservation = repository.Find(id);
             if (reservation == null)
             {
                 return HttpNotFound();
@@ -91,9 +96,8 @@ namespace BusTicketBookingSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Reservation reservation = db.Reservations.Find(id);
-            db.Reservations.Remove(reservation);
-            db.SaveChanges();
+            repository.Delete(id);
+            repository.Save();
             return RedirectToAction("Index");
         }
 
@@ -101,7 +105,7 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repository.Dispose();
             }
             base.Dispose(disposing);
         }

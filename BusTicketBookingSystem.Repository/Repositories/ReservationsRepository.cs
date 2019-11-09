@@ -39,11 +39,6 @@ namespace BusTicketBookingSystem.Repository.Repositories
             return objRes;
         }
 
-        public void Insert(Reservation res)
-        {
-            _db.Reservations.Add(res);
-        }
-
         public void Save()
         {
             _db.SaveChanges();
