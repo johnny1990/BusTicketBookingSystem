@@ -21,11 +21,6 @@ namespace BusTicketBookingSystem.Controllers
             repository = objIrepository;
         }
 
-        public CitiesController()
-        {
-
-        }
-
         // GET: Cities
         public ActionResult Index()
         {

@@ -14,7 +14,6 @@ namespace BusTicketBookingSystem.Controllers
     [Authorize(Roles = "Admin")]
     public class ReservationsController : Controller
     {
-        //private TicketBookingModelEntities db = new TicketBookingModelEntities();
 
         private readonly IReservationsRepository repository;
 

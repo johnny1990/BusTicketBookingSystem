@@ -20,12 +20,7 @@ namespace BusTicketBookingSystem.Controllers
         public ToursController(IToursRepository objIrepository)
         {
             repository = objIrepository;
-        }
-
-        public ToursController()
-        {
-
-        }
+        }     
 
         private TicketBookingModelEntities db = new TicketBookingModelEntities();
 
