@@ -4,13 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+    <h2 class="text-center">Tours list</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("New tour", "Create")
 </p>
-<table class="table">
-    <tr>
+<table class="table" border="1">
+    <tr class="alert-info">
         <th>
             @Html.DisplayNameFor(model => model.TourDate)
         </th>
@@ -35,36 +35,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TourDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Departure)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Arrival)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SeatsAvailable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bus.NrReg)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TourId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TourId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TourId })   |
-            @Html.ActionLink("Reserve", "Reserve", new { id = item.TourId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TourDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arrival)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatsAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bus.NrReg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TourId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TourId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TourId })   |
+                @Html.ActionLink("Reserve", "Reserve", new { id = item.TourId })
+            </td>
+        </tr>
+    }
 
 </table>
