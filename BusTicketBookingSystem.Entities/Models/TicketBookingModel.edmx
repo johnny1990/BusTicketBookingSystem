@@ -20,6 +20,15 @@
           <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Feedbacks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromPassenger" Type="nvarchar" MaxLength="50" />
+          <Property Name="FromEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Feedback" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Reservations">
           <Key>
             <PropertyRef Name="ReservationId" />
@@ -87,6 +96,7 @@
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Buses" EntityType="Self.Buses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Reservations_dbo_Tours_TourId" Association="Self.FK_dbo_Reservations_dbo_Tours_TourId">
@@ -123,6 +133,15 @@
           <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tours" Relationship="Self.FK_dbo_Tours_dbo_Cities_CityId" FromRole="Cities" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Feedback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromPassenger" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FromEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Feedback1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -195,6 +214,7 @@
         <EntityContainer Name="TicketBookingModelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Buses" EntityType="Self.Bus" />
           <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <AssociationSet Name="FK_dbo_Tours_dbo_Buses_BusId" Association="Self.FK_dbo_Tours_dbo_Buses_BusId">
@@ -230,6 +250,16 @@
               <MappingFragment StoreEntitySet="Cities">
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="Model.Feedback">
+              <MappingFragment StoreEntitySet="Feedbacks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FromPassenger" ColumnName="FromPassenger" />
+                <ScalarProperty Name="FromEmail" ColumnName="FromEmail" />
+                <ScalarProperty Name="Feedback1" ColumnName="Feedback" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -59,6 +59,9 @@
     <Compile Include="Models\City.cs">
       <DependentUpon>TicketBookingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Feedback.cs">
+      <DependentUpon>TicketBookingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>TicketBookingModel.tt</DependentUpon>
     </Compile>
