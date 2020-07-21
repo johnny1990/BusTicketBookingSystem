@@ -11,12 +11,14 @@ namespace BusTicketBookingSystem.Entities.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Feedback
     {
         public int Id { get; set; }
         public string FromPassenger { get; set; }
         public string FromEmail { get; set; }
+        [Display(Name= "Feedback")]
         public string Feedback1 { get; set; }
     }
 }

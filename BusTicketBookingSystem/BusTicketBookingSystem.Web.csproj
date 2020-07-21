@@ -277,6 +277,9 @@
     <Content Include="Views\Cities\Details.cshtml" />
     <Content Include="Views\Cities\Edit.cshtml" />
     <Content Include="Views\Cities\Index.cshtml" />
+    <Content Include="Views\Home\Feedback.cshtml" />
+    <Content Include="Views\Home\Sent.cshtml" />
+    <Content Include="Views\Home\FeedbackList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Site\" />
