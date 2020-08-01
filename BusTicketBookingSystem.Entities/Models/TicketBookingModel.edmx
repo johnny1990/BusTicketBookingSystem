@@ -12,6 +12,7 @@
           <Property Name="BusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NrReg" Type="nvarchar" MaxLength="9" Nullable="false" />
           <Property Name="NrSeats" Type="int" Nullable="false" />
+          <Property Name="DriverId" Type="int" />
         </EntityType>
         <EntityType Name="Cities">
           <Key>
@@ -19,6 +20,19 @@
           </Key>
           <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DriverLicence" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ProfilePicture" Type="varbinary" MaxLength="1" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Feedbacks">
           <Key>
@@ -51,6 +65,20 @@
           <Property Name="SeatsAvailable" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
+        <Association Name="FK_dbo_Buses_dbo_Drivers_DriverId">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buses" Type="Self.Buses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Buses">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Reservations_dbo_Tours_TourId">
           <End Role="Tours" Type="Self.Tours" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -96,9 +124,14 @@
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Buses" EntityType="Self.Buses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Buses" EntitySet="Buses" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Reservations_dbo_Tours_TourId" Association="Self.FK_dbo_Reservations_dbo_Tours_TourId">
             <End Role="Tours" EntitySet="Tours" />
             <End Role="Reservations" EntitySet="Reservations" />
@@ -124,6 +157,8 @@
           <Property Name="BusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NrReg" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NrSeats" Type="Int32" Nullable="false" />
+          <Property Name="DriverId" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_dbo_Buses_dbo_Drivers_DriverId" FromRole="Buses" ToRole="Drivers" />
           <NavigationProperty Name="Tours" Relationship="Self.FK_dbo_Tours_dbo_Buses_BusId" FromRole="Buses" ToRole="Tours" />
         </EntityType>
         <EntityType Name="City">
@@ -133,6 +168,20 @@
           <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tours" Relationship="Self.FK_dbo_Tours_dbo_Cities_CityId" FromRole="Cities" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DriverLicence" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProfilePicture" Type="Binary" MaxLength="1" FixedLength="false" Nullable="false" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Buses" Relationship="Self.FK_dbo_Buses_dbo_Drivers_DriverId" FromRole="Drivers" ToRole="Buses" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
@@ -169,6 +218,20 @@
           <NavigationProperty Name="City" Relationship="Self.FK_dbo_Tours_dbo_Cities_CityId" FromRole="Tours" ToRole="Cities" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_dbo_Reservations_dbo_Tours_TourId" FromRole="Tours" ToRole="Reservations" />
         </EntityType>
+        <Association Name="FK_dbo_Buses_dbo_Drivers_DriverId">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Buses" Type="Self.Bus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Buses">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Tours_dbo_Buses_BusId">
           <End Role="Buses" Type="Self.Bus" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -214,9 +277,14 @@
         <EntityContainer Name="TicketBookingModelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Buses" EntityType="Self.Bus" />
           <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
+          <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Buses" EntitySet="Buses" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Tours_dbo_Buses_BusId" Association="Self.FK_dbo_Tours_dbo_Buses_BusId">
             <End Role="Buses" EntitySet="Buses" />
             <End Role="Tours" EntitySet="Tours" />
@@ -242,6 +310,7 @@
                 <ScalarProperty Name="BusId" ColumnName="BusId" />
                 <ScalarProperty Name="NrReg" ColumnName="NrReg" />
                 <ScalarProperty Name="NrSeats" ColumnName="NrSeats" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -250,6 +319,20 @@
               <MappingFragment StoreEntitySet="Cities">
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="Model.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="DriverLicence" ColumnName="DriverLicence" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

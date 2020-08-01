@@ -12,21 +12,24 @@ namespace BusTicketBookingSystem.Entities.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Bus
+    public partial class Driver
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bus()
+        public Driver()
         {
-            this.Tours = new HashSet<Tour>();
+            this.Buses = new HashSet<Bus>();
         }
     
-        public int BusId { get; set; }
-        public string NrReg { get; set; }
-        public int NrSeats { get; set; }
-        public Nullable<int> DriverId { get; set; }
+        public int DriverId { get; set; }
+        public string Name { get; set; }
+        public string SerialNumber { get; set; }
+        public string DriverLicence { get; set; }
+        public string PhoneNumber { get; set; }
+        public string EmailAddress { get; set; }
+        public byte[] ProfilePicture { get; set; }
+        public bool IsAvailable { get; set; }
     
-        public virtual Driver Driver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tour> Tours { get; set; }
+        public virtual ICollection<Bus> Buses { get; set; }
     }
 }

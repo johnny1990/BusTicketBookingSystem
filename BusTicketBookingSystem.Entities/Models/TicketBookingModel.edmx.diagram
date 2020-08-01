@@ -4,12 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7654840ce45341c9b5f932f77aa52037" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Bus" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.City" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Reservation" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Tour" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="60f54c2b741b48679e52a300e1a1a16f" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Bus" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.City" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Driver" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Reservation" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tour" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_Buses_dbo_Drivers_DriverId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Tours_dbo_Buses_BusId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Tours_dbo_Cities_CityId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Reservations_dbo_Tours_TourId" ManuallyRouted="false" />
