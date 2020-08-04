@@ -91,7 +91,7 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-              //???  db.Entry(driver).State = EntityState.Modified;
+                repository.Update(driver);
                 repository.Save();
                 return RedirectToAction("Index");
             }
@@ -117,8 +117,7 @@ namespace BusTicketBookingSystem.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
-            Driver driver = repository.Find(id);
+        {          
             repository.Delete(id);
             repository.Save();
             return RedirectToAction("Index");
