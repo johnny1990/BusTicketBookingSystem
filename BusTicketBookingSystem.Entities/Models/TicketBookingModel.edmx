@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Buses">
           <Key>
             <PropertyRef Name="BusId" />
@@ -31,7 +31,6 @@
           <Property Name="DriverLicence" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="ProfilePicture" Type="varbinary" MaxLength="1" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Feedbacks">
@@ -145,8 +144,7 @@
             <End Role="Tours" EntitySet="Tours" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -179,7 +177,6 @@
           <Property Name="DriverLicence" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmailAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProfilePicture" Type="Binary" MaxLength="1" FixedLength="false" Nullable="false" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Buses" Relationship="Self.FK_dbo_Buses_dbo_Drivers_DriverId" FromRole="Drivers" ToRole="Buses" />
         </EntityType>
@@ -331,7 +328,6 @@
                 <ScalarProperty Name="DriverLicence" ColumnName="DriverLicence" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
-                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
                 <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
               </MappingFragment>
             </EntityTypeMapping>

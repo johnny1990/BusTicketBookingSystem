@@ -15,10 +15,12 @@ namespace BusTicketBookingSystem.Controllers
     public class BusesController : Controller
     {
         private readonly IBusRepository repository;
+        private readonly IDriversRepository repository_d;
 
-        public BusesController(IBusRepository objIrepository)
+        public BusesController(IBusRepository objIrepository, IDriversRepository objIrepository_d)
         {
             repository = objIrepository;
+            repository_d = objIrepository_d;
         }
 
         // GET: Buses
@@ -46,6 +48,7 @@ namespace BusTicketBookingSystem.Controllers
         // GET: Buses/Create
         public ActionResult Create()
         {
+            ViewBag.DriverId = new SelectList(repository_d.All, "DriverId", "DriverId");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace BusTicketBookingSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BusId,NrReg,NrSeats")] Bus bus)
+        public ActionResult Create([Bind(Include = "BusId,NrReg,NrSeats,DriverId")] Bus bus)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +82,7 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DriverId = new SelectList(repository_d.All, "DriverId", "DriverId");
             return View(bus);
         }
 
@@ -87,7 +91,7 @@ namespace BusTicketBookingSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BusId,NrReg,NrSeats")] Bus bus)
+        public ActionResult Edit([Bind(Include = "BusId,NrReg,NrSeats,DriverId")] Bus bus)
         {
             if (ModelState.IsValid)
             {
