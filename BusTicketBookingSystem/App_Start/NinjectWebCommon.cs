@@ -51,6 +51,8 @@ namespace BusTicketBookingSystem.App_Start
                 kernel.Bind<IReservationsRepository>().To<ReservationsRepository>();
                 kernel.Bind<IToursRepository>().To<ToursRepository>();
                 kernel.Bind<IDriversRepository>().To<DriversRepository>();
+                kernel.Bind<IPassengersRepository>().To<PassengersRepository>();
+                kernel.Bind<ISeatsRepository>().To<SeatsRepository>();
                 kernel.Bind<IFeedbackRepository>().To<FeedbackRepository>();
 
                 RegisterServices(kernel);
