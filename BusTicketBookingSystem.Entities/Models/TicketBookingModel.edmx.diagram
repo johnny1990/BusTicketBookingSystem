@@ -4,16 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="60f54c2b741b48679e52a300e1a1a16f" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Bus" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.City" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Driver" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Reservation" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Tour" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="48a35975910040658a66787ef96b8e9b" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Bus" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.City" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Driver" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Feedback" Width="1.5" PointX="0.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Passenger" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Reservation" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Seat" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tour" Width="1.5" PointX="8.25" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_dbo_Buses_dbo_Drivers_DriverId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Seats_dbo_Buses_Bus_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Tours_dbo_Buses_BusId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Tours_dbo_Cities_CityId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Seats_dbo_Passengers_Passenger_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Reservations_dbo_Tours_TourId" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

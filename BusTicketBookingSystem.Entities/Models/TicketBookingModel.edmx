@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Buses">
           <Key>
             <PropertyRef Name="BusId" />
@@ -42,6 +42,14 @@
           <Property Name="FromEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="Feedback" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Passengers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Blocked" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Reservations">
           <Key>
             <PropertyRef Name="ReservationId" />
@@ -50,6 +58,17 @@
           <Property Name="ReservationDate" Type="datetime" Nullable="false" />
           <Property Name="TourId" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Seats">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <Property Name="SeatNumber" Type="int" Nullable="false" />
+          <Property Name="PassengerId" Type="int" Nullable="false" />
+          <Property Name="BusId" Type="int" />
+          <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Tours">
           <Key>
@@ -92,6 +111,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Seats_dbo_Buses_Bus_Id">
+          <End Role="Buses" Type="Self.Buses" Multiplicity="0..1" />
+          <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buses">
+              <PropertyRef Name="BusId" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="BusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Seats_dbo_Passengers_Passenger_Id">
+          <End Role="Passengers" Type="Self.Passengers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Seats" Type="Self.Seats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passengers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="PassengerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Tours_dbo_Buses_BusId">
           <End Role="Buses" Type="Self.Buses" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -125,7 +170,9 @@
           <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Passengers" EntityType="Self.Passengers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
             <End Role="Drivers" EntitySet="Drivers" />
@@ -134,6 +181,14 @@
           <AssociationSet Name="FK_dbo_Reservations_dbo_Tours_TourId" Association="Self.FK_dbo_Reservations_dbo_Tours_TourId">
             <End Role="Tours" EntitySet="Tours" />
             <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Seats_dbo_Buses_Bus_Id" Association="Self.FK_dbo_Seats_dbo_Buses_Bus_Id">
+            <End Role="Buses" EntitySet="Buses" />
+            <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Seats_dbo_Passengers_Passenger_Id" Association="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id">
+            <End Role="Passengers" EntitySet="Passengers" />
+            <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Tours_dbo_Buses_BusId" Association="Self.FK_dbo_Tours_dbo_Buses_BusId">
             <End Role="Buses" EntitySet="Buses" />
@@ -144,7 +199,8 @@
             <End Role="Tours" EntitySet="Tours" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -157,6 +213,7 @@
           <Property Name="NrSeats" Type="Int32" Nullable="false" />
           <Property Name="DriverId" Type="Int32" />
           <NavigationProperty Name="Driver" Relationship="Self.FK_dbo_Buses_dbo_Drivers_DriverId" FromRole="Buses" ToRole="Drivers" />
+          <NavigationProperty Name="Seats" Relationship="Self.FK_dbo_Seats_dbo_Buses_Bus_Id" FromRole="Buses" ToRole="Seats" />
           <NavigationProperty Name="Tours" Relationship="Self.FK_dbo_Tours_dbo_Buses_BusId" FromRole="Buses" ToRole="Tours" />
         </EntityType>
         <EntityType Name="City">
@@ -189,6 +246,15 @@
           <Property Name="FromEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Feedback1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Passenger">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Blocked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Seats" Relationship="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id" FromRole="Passengers" ToRole="Seats" />
+        </EntityType>
         <EntityType Name="Reservation">
           <Key>
             <PropertyRef Name="ReservationId" />
@@ -198,6 +264,19 @@
           <Property Name="TourId" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Tour" Relationship="Self.FK_dbo_Reservations_dbo_Tours_TourId" FromRole="Reservations" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+          <Property Name="SeatNumber" Type="Int32" Nullable="false" />
+          <Property Name="PassengerId" Type="Int32" Nullable="false" />
+          <Property Name="BusId" Type="Int32" />
+          <Property Name="Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bus" Relationship="Self.FK_dbo_Seats_dbo_Buses_Bus_Id" FromRole="Seats" ToRole="Buses" />
+          <NavigationProperty Name="Passenger" Relationship="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id" FromRole="Seats" ToRole="Passengers" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -229,6 +308,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Seats_dbo_Buses_Bus_Id">
+          <End Role="Buses" Type="Self.Bus" Multiplicity="0..1" />
+          <End Role="Seats" Type="Self.Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buses">
+              <PropertyRef Name="BusId" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="BusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Tours_dbo_Buses_BusId">
           <End Role="Buses" Type="Self.Bus" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -257,6 +348,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Seats_dbo_Passengers_Passenger_Id">
+          <End Role="Passengers" Type="Self.Passenger" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Seats" Type="Self.Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passengers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="PassengerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Reservations_dbo_Tours_TourId">
           <End Role="Tours" Type="Self.Tour" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -276,11 +381,17 @@
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Drivers" EntityType="Self.Driver" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
+          <EntitySet Name="Passengers" EntityType="Self.Passenger" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="Seats" EntityType="Self.Seat" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
             <End Role="Drivers" EntitySet="Drivers" />
             <End Role="Buses" EntitySet="Buses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Seats_dbo_Buses_Bus_Id" Association="Self.FK_dbo_Seats_dbo_Buses_Bus_Id">
+            <End Role="Buses" EntitySet="Buses" />
+            <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Tours_dbo_Buses_BusId" Association="Self.FK_dbo_Tours_dbo_Buses_BusId">
             <End Role="Buses" EntitySet="Buses" />
@@ -289,6 +400,10 @@
           <AssociationSet Name="FK_dbo_Tours_dbo_Cities_CityId" Association="Self.FK_dbo_Tours_dbo_Cities_CityId">
             <End Role="Cities" EntitySet="Cities" />
             <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Seats_dbo_Passengers_Passenger_Id" Association="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id">
+            <End Role="Passengers" EntitySet="Passengers" />
+            <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Reservations_dbo_Tours_TourId" Association="Self.FK_dbo_Reservations_dbo_Tours_TourId">
             <End Role="Tours" EntitySet="Tours" />
@@ -342,6 +457,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Passengers">
+            <EntityTypeMapping TypeName="Model.Passenger">
+              <MappingFragment StoreEntitySet="Passengers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Blocked" ColumnName="Blocked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Reservations">
             <EntityTypeMapping TypeName="Model.Reservation">
               <MappingFragment StoreEntitySet="Reservations">
@@ -349,6 +473,18 @@
                 <ScalarProperty Name="ReservationDate" ColumnName="ReservationDate" />
                 <ScalarProperty Name="TourId" ColumnName="TourId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seats">
+            <EntityTypeMapping TypeName="Model.Seat">
+              <MappingFragment StoreEntitySet="Seats">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="SeatNumber" ColumnName="SeatNumber" />
+                <ScalarProperty Name="PassengerId" ColumnName="PassengerId" />
+                <ScalarProperty Name="BusId" ColumnName="BusId" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

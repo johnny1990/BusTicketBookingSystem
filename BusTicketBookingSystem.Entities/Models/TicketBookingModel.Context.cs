@@ -29,7 +29,9 @@ namespace BusTicketBookingSystem.Entities.Models
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
+        public virtual DbSet<Passenger> Passengers { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Seat> Seats { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
     }
 }
