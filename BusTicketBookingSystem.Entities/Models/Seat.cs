@@ -23,5 +23,11 @@ namespace BusTicketBookingSystem.Entities.Models
     
         public virtual Bus Bus { get; set; }
         public virtual Passenger Passenger { get; set; }
+
+        public Seat()
+        {
+            this.IsAvailable = true;
+            this.Time = DateTime.Now.ToString();
+        }
     }
 }
