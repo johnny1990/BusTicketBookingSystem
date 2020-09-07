@@ -1,4 +1,5 @@
 ﻿using BusTicketBookingSystem.Entities.Models;
+using BusTicketBookingSystem.Models;
 using BusTicketBookingSystem.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace BusTicketBookingSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
         private readonly IFeedbackRepository repository;
@@ -83,10 +85,29 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult FeedbackList()
         {
             return View(repository.All.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        [HttpPost]//to modify
+        [ValidateAntiForgeryToken]
+        public ActionResult Contact(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                //db.Contact.Add(contact);
+                //db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View("Index", contact);
         }
     }
 }
