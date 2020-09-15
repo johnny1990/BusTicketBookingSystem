@@ -63,5 +63,9 @@
     <None Include="FeedbacksTable.sql" />
     <None Include="ReservationsTable.sql" />
     <None Include="ToursTable.sql" />
+    <None Include="TicketsTable.sql" />
+    <None Include="SeatsTable.sql" />
+    <None Include="PassengersTable.sql" />
+    <None Include="DriversTable.sql" />
   </ItemGroup>
 </Project>
