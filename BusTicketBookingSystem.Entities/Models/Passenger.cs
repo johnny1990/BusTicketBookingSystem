@@ -18,6 +18,7 @@ namespace BusTicketBookingSystem.Entities.Models
         public Passenger()
         {
             this.Seats = new HashSet<Seat>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,7 @@ namespace BusTicketBookingSystem.Entities.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat> Seats { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

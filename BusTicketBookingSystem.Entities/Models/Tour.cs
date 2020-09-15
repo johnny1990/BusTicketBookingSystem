@@ -18,6 +18,7 @@ namespace BusTicketBookingSystem.Entities.Models
         public Tour()
         {
             this.Reservations = new HashSet<Reservation>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
         public int TourId { get; set; }
@@ -33,6 +34,8 @@ namespace BusTicketBookingSystem.Entities.Models
         public virtual City City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ticket> Tickets { get; set; }
 
         #region Methods
         public void ConfigureSeats(int BusId)

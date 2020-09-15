@@ -74,6 +74,9 @@
     <Compile Include="Models\Seat.cs">
       <DependentUpon>TicketBookingModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Ticket.cs">
+      <DependentUpon>TicketBookingModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TicketBookingModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

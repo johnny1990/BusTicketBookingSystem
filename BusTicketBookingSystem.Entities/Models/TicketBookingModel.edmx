@@ -70,6 +70,17 @@
           <Property Name="BusId" Type="int" />
           <Property Name="Time" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookingTime" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsBlocked" Type="bit" Nullable="false" />
+          <Property Name="Trip_Id" Type="int" Nullable="false" />
+          <Property Name="Passenger_Id" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
         <EntityType Name="Tours">
           <Key>
             <PropertyRef Name="TourId" />
@@ -137,6 +148,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Tickets_dbo_Passengers_Passenger_Id">
+          <End Role="Passengers" Type="Self.Passengers" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passengers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="Passenger_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Tickets_dbo_Tours_Tour_Id">
+          <End Role="Tours" Type="Self.Tours" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="TourId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="Trip_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Tours_dbo_Buses_BusId">
           <End Role="Buses" Type="Self.Buses" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -173,6 +210,7 @@
           <EntitySet Name="Passengers" EntityType="Self.Passengers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tickets" EntityType="Self.Tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
             <End Role="Drivers" EntitySet="Drivers" />
@@ -189,6 +227,14 @@
           <AssociationSet Name="FK_dbo_Seats_dbo_Passengers_Passenger_Id" Association="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id">
             <End Role="Passengers" EntitySet="Passengers" />
             <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tickets_dbo_Passengers_Passenger_Id" Association="Self.FK_dbo_Tickets_dbo_Passengers_Passenger_Id">
+            <End Role="Passengers" EntitySet="Passengers" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tickets_dbo_Tours_Tour_Id" Association="Self.FK_dbo_Tickets_dbo_Tours_Tour_Id">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Tours_dbo_Buses_BusId" Association="Self.FK_dbo_Tours_dbo_Buses_BusId">
             <End Role="Buses" EntitySet="Buses" />
@@ -254,6 +300,7 @@
           <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Blocked" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Seats" Relationship="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id" FromRole="Passengers" ToRole="Seats" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_dbo_Tickets_dbo_Passengers_Passenger_Id" FromRole="Passengers" ToRole="Tickets" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -278,6 +325,19 @@
           <NavigationProperty Name="Bus" Relationship="Self.FK_dbo_Seats_dbo_Buses_Bus_Id" FromRole="Seats" ToRole="Buses" />
           <NavigationProperty Name="Passenger" Relationship="Self.FK_dbo_Seats_dbo_Passengers_Passenger_Id" FromRole="Seats" ToRole="Passengers" />
         </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookingTime" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+          <Property Name="Trip_Id" Type="Int32" Nullable="false" />
+          <Property Name="Passenger_Id" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Passenger" Relationship="Self.FK_dbo_Tickets_dbo_Passengers_Passenger_Id" FromRole="Tickets" ToRole="Passengers" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_dbo_Tickets_dbo_Tours_Tour_Id" FromRole="Tickets" ToRole="Tours" />
+        </EntityType>
         <EntityType Name="Tour">
           <Key>
             <PropertyRef Name="TourId" />
@@ -293,6 +353,7 @@
           <NavigationProperty Name="Bus" Relationship="Self.FK_dbo_Tours_dbo_Buses_BusId" FromRole="Tours" ToRole="Buses" />
           <NavigationProperty Name="City" Relationship="Self.FK_dbo_Tours_dbo_Cities_CityId" FromRole="Tours" ToRole="Cities" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_dbo_Reservations_dbo_Tours_TourId" FromRole="Tours" ToRole="Reservations" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK_dbo_Tickets_dbo_Tours_Tour_Id" FromRole="Tours" ToRole="Tickets" />
         </EntityType>
         <Association Name="FK_dbo_Buses_dbo_Drivers_DriverId">
           <End Role="Drivers" Type="Self.Driver" Multiplicity="0..1">
@@ -362,6 +423,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Tickets_dbo_Passengers_Passenger_Id">
+          <End Role="Passengers" Type="Self.Passenger" Multiplicity="0..1" />
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Passengers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="Passenger_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Reservations_dbo_Tours_TourId">
           <End Role="Tours" Type="Self.Tour" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -376,6 +449,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Tickets_dbo_Tours_Tour_Id">
+          <End Role="Tours" Type="Self.Tour" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tickets" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="TourId" />
+            </Principal>
+            <Dependent Role="Tickets">
+              <PropertyRef Name="Trip_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TicketBookingModelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Buses" EntityType="Self.Bus" />
           <EntitySet Name="Cities" EntityType="Self.City" />
@@ -384,6 +471,7 @@
           <EntitySet Name="Passengers" EntityType="Self.Passenger" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
           <EntitySet Name="Seats" EntityType="Self.Seat" />
+          <EntitySet Name="Tickets" EntityType="Self.Ticket" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <AssociationSet Name="FK_dbo_Buses_dbo_Drivers_DriverId" Association="Self.FK_dbo_Buses_dbo_Drivers_DriverId">
             <End Role="Drivers" EntitySet="Drivers" />
@@ -405,9 +493,17 @@
             <End Role="Passengers" EntitySet="Passengers" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tickets_dbo_Passengers_Passenger_Id" Association="Self.FK_dbo_Tickets_dbo_Passengers_Passenger_Id">
+            <End Role="Passengers" EntitySet="Passengers" />
+            <End Role="Tickets" EntitySet="Tickets" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Reservations_dbo_Tours_TourId" Association="Self.FK_dbo_Reservations_dbo_Tours_TourId">
             <End Role="Tours" EntitySet="Tours" />
             <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Tickets_dbo_Tours_Tour_Id" Association="Self.FK_dbo_Tickets_dbo_Tours_Tour_Id">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="Tickets" EntitySet="Tickets" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -485,6 +581,18 @@
                 <ScalarProperty Name="PassengerId" ColumnName="PassengerId" />
                 <ScalarProperty Name="BusId" ColumnName="BusId" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="Model.Ticket">
+              <MappingFragment StoreEntitySet="Tickets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BookingTime" ColumnName="BookingTime" />
+                <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
+                <ScalarProperty Name="Trip_Id" ColumnName="Trip_Id" />
+                <ScalarProperty Name="Passenger_Id" ColumnName="Passenger_Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
