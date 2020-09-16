@@ -58,6 +58,7 @@
     <Compile Include="Interfaces\IPassengersRepository.cs" />
     <Compile Include="Interfaces\IReservationsRepository.cs" />
     <Compile Include="Interfaces\ISeatsRepository.cs" />
+    <Compile Include="Interfaces\ITicketRepository.cs" />
     <Compile Include="Interfaces\IToursRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BusRepository.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Repositories\PassengersRepository.cs" />
     <Compile Include="Repositories\ReservationsRepository.cs" />
     <Compile Include="Repositories\SeatsRepository.cs" />
+    <Compile Include="Repositories\TicketRepository.cs" />
     <Compile Include="Repositories\ToursRepository.cs" />
   </ItemGroup>
   <ItemGroup>
