@@ -49,7 +49,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets/Create
-        public ActionResult Create()
+        public ActionResult Buy()
         {
             ViewBag.Passenger_Id = new SelectList(repository_p.All, "Id", "Name");
             ViewBag.Trip_Id = new SelectList(repository_t.All, "TourId", "TourId");
@@ -61,7 +61,7 @@ namespace BusTicketBookingSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,BookingTime,IsBlocked,Trip_Id,Passenger_Id,Price")] Ticket ticket)
+        public ActionResult Buy([Bind(Include = "Id,BookingTime,IsBlocked,Trip_Id,Passenger_Id,Price")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
