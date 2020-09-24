@@ -11,7 +11,6 @@ using BusTicketBookingSystem.Repository.Interfaces;
 
 namespace BusTicketBookingSystem.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
     public class TicketsController : Controller
     {
         private readonly ITicketRepository repository;
@@ -27,6 +26,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var tickets = repository.All.Include(t => t.Passenger).Include(t => t.Tour);
@@ -34,6 +34,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,6 +50,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets/Create
+        [Authorize(Roles = "Admin, User")]
         public ActionResult Buy()
         {
             ViewBag.Passenger_Id = new SelectList(repository_p.All, "Id", "Name");
@@ -61,6 +63,7 @@ namespace BusTicketBookingSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, User")]
         public ActionResult Buy([Bind(Include = "Id,BookingTime,IsBlocked,Trip_Id,Passenger_Id,Price")] Ticket ticket)
         {
             if (ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -97,6 +101,7 @@ namespace BusTicketBookingSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,BookingTime,IsBlocked,Trip_Id,Passenger_Id,Price")] Ticket ticket)
         {
             if (ModelState.IsValid)
@@ -111,6 +116,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Tickets/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -126,6 +132,7 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // POST: Tickets/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -147,6 +154,20 @@ namespace BusTicketBookingSystem.Controllers
 
             List<decimal> pList = new List<decimal>();
             foreach (var item in price)
+            {
+                pList.Add(item.Price);
+            }
+            return Json(pList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetPriceForPayPal(decimal price)
+        {
+            var priceL = from cst in repository_t.All
+                        where cst.Price == price
+                        select cst;
+            List<decimal> pList = new List<decimal>();
+            foreach (var item in priceL)
             {
                 pList.Add(item.Price);
             }

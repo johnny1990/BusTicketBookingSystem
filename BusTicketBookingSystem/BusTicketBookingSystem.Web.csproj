@@ -232,6 +232,8 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Site\LayoutMenu.js" />
     <Content Include="Scripts\Site\Sliding.js" />
+    <Content Include="Scripts\Ticket\PayPal.js" />
+    <Content Include="Scripts\Ticket\PopulatePriceForPayPal.js" />
     <Content Include="Scripts\Ticket\PopulateTicketPrice.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

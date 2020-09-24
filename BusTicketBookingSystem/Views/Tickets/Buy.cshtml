@@ -67,11 +67,33 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<p class="text-center">Paypal Payment </p>
 
+<div class="paypaldiv">
+    <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+        <div>. </div>
+        <h4>PayPal payment</h4>
+        <div>
+            <input type="text" name="cmd" value="_cart" contenteditable="false">
+            <input type="text" name="upload" value="1" contenteditable="false">
+            <input type="text" name="business" value="jultranet-facilitator@gmail.com" contenteditable="false">
+        </div>
+
+
+        <input type="text" name="Ticket" value="Ticket" contenteditable="false">
+        @Html.TextBox("PriceP")
+        @*<input type="text" name="PriceP" contenteditable="false">*@
+        <input type="text" name="Quantity" value="1" contenteditable="false">count++;
+
+
+        <div><input type="text" name="currency_code" value="USD" contenteditable="false"></div>
+        <div>. </div>
+        <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+    </form>
+</div>
 
 
 @section Scripts {
-    <script type="text/javascript" src="~/Scripts/Ticket/PopulateTicketPrice.js">
-    </script>
+    <script type="text/javascript" src="~/Scripts/Ticket/PopulateTicketPrice.js"></script>
+    <script type="text/javascript" src="~/Scripts/Ticket/PayPal.js"></script>
+    <script type="text/javascript" src="~/Scripts/Ticket/PopulatePriceForPayPal.js"></script>
 }
