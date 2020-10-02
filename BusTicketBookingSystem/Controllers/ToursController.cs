@@ -16,10 +16,15 @@ namespace BusTicketBookingSystem.Controllers
     public class ToursController : Controller
     {
         private readonly IToursRepository repository;
+        private readonly ICityRepository repository_c;
+        private readonly IBusRepository repository_b;
 
-        public ToursController(IToursRepository objIrepository)
+        public ToursController(IToursRepository objIrepository, ICityRepository objIrepository_c
+            , IBusRepository objIrepository_b)
         {
             repository = objIrepository;
+            repository_c = objIrepository_c;
+            repository_b = objIrepository_b;
         }     
 
         private TicketBookingModelEntities db = new TicketBookingModelEntities();
@@ -52,6 +57,8 @@ namespace BusTicketBookingSystem.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.CityId = new SelectList(repository_c.All, "CityId", "CityId");
+            ViewBag.BusId = new SelectList(repository_b.All, "BusId", "BusId");
             return View();
         }
 
