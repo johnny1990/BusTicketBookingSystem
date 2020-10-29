@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BusTicketBookingSystem.Entities.Models;
 using BusTicketBookingSystem.Repository.Interfaces;
+using Microsoft.Ajax.Utilities;
 
 namespace BusTicketBookingSystem.Controllers
 {
@@ -48,21 +49,16 @@ namespace BusTicketBookingSystem.Controllers
             return View();
         }
 
-        // POST: Cities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CityId,Name")] City city)
+        public JsonResult InsertCity(City city)
         {
             if (ModelState.IsValid)
             {
                 repository.Insert(city);
                 repository.Save();
-                return RedirectToAction("Index");
             }
 
-            return View(city);
+            return Json(city);
         }
 
         // GET: Cities/Edit/5
@@ -77,23 +73,23 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Id = id;
+
             return View(city);
         }
 
-        // POST: Cities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CityId,Name")] City city)
+        public JsonResult UpdateCity(City city)
         {
             if (ModelState.IsValid)
             {
                 repository.Update(city);
                 repository.Save();
-                return RedirectToAction("Index");
+                return Json("Ok");
             }
-            return View(city);
+            else
+                return Json("Not ok");
         }
 
         // GET: Cities/Delete/5
@@ -108,17 +104,18 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Id = id;
             return View(city);
         }
 
-        // POST: Cities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult DeleteCity(int id)
         {
             repository.Delete(id);
             repository.Save();
-            return RedirectToAction("Index");
+
+            return Json("");
         }
 
         protected override void Dispose(bool disposing)
