@@ -52,21 +52,16 @@ namespace BusTicketBookingSystem.Controllers
             return View();
         }
 
-        // POST: Buses/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BusId,NrReg,NrSeats,DriverId")] Bus bus)
+        public JsonResult InsertBus(Bus bus)
         {
             if (ModelState.IsValid)
             {
                 repository.Insert(bus);
                 repository.Save();
-                return RedirectToAction("Index");
             }
 
-            return View(bus);
+            return Json(bus);
         }
 
         // GET: Buses/Edit/5
@@ -83,23 +78,21 @@ namespace BusTicketBookingSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.DriverId = new SelectList(repository_d.All, "DriverId", "DriverId");
+            ViewBag.Id = id;
             return View(bus);
         }
 
-        // POST: Buses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BusId,NrReg,NrSeats,DriverId")] Bus bus)
+        public JsonResult UpdateBus(Bus bus)
         {
             if (ModelState.IsValid)
             {
                 repository.Update(bus);
                 repository.Save();
-                return RedirectToAction("Index");
+                return Json("Ok");
             }
-            return View(bus);
+            else
+                return Json("Not ok");
         }
 
         // GET: Buses/Delete/5
@@ -114,17 +107,17 @@ namespace BusTicketBookingSystem.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Id = id;
             return View(bus);
         }
 
-        // POST: Buses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult DeleteBus(int id)
         {
             repository.Delete(id);
             repository.Save();
-            return RedirectToAction("Index");
+
+            return Json("");
         }
 
         protected override void Dispose(bool disposing)
