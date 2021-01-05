@@ -11,6 +11,7 @@ using BusTicketBookingSystem.Repository.Interfaces;
 
 namespace BusTicketBookingSystem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PassengersController : Controller
     {
 
