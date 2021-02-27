@@ -11,7 +11,7 @@ using BusTicketBookingSystem.Repository.Interfaces;
 
 namespace BusTicketBookingSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]
+   [Authorize(Roles = "Admin")]
     public class BusesController : Controller
     {
         private readonly IBusRepository repository;
