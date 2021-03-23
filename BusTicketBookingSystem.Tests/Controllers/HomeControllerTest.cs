@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BusTicketBookingSystem;
 using BusTicketBookingSystem.Controllers;
+using BusTicketBookingSystem.Models;
 
 namespace BusTicketBookingSystem.Tests.Controllers
 {
@@ -25,30 +26,43 @@ namespace BusTicketBookingSystem.Tests.Controllers
             Assert.IsNotNull(result);
         }
 
-        //[TestMethod]
-        //public void About()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+        [TestMethod]
+        public void Feedback()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
 
-        //    // Act
-        //    ViewResult result = controller.About() as ViewResult;
+            // Act
+            ViewResult result = controller.Feedback() as ViewResult;
 
-        //    // Assert
-        //    Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+        }
 
-        //[TestMethod]
-        //public void Contact()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+        [TestMethod]
+        public void Sent()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
 
-        //    // Act
-        //    ViewResult result = controller.Contact() as ViewResult;
+            // Act
+            ViewResult result = controller.Sent() as ViewResult;
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void Contact()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
+            Contact contact = new Contact();
+            // Act
+            ViewResult result = controller.Contact(contact) as ViewResult;
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }
