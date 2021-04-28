@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTicketBookingSystem.Repo
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BusTicketBookingSystem.Database", "BusTicketBookingSystem.Database\BusTicketBookingSystem.Database.sqlproj", "{600F0FD2-02C0-487F-B4C9-601F94252D00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTicketBookingSystem.WCF", "BusTicketBookingSystem.WCF\BusTicketBookingSystem.WCF.csproj", "{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{600F0FD2-02C0-487F-B4C9-601F94252D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{600F0FD2-02C0-487F-B4C9-601F94252D00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{600F0FD2-02C0-487F-B4C9-601F94252D00}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
