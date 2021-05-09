@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTicketBookingSystem.Web", "BusTicketBookingSystem\BusTicketBookingSystem.Web.csproj", "{EEDDCE2F-9B1D-4D35-8A6A-960E3C546181}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696} = {CFF428C1-1D21-45A8-A1E2-BCCDFBE7B696}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusTicketBookingSystem.Web.Tests", "BusTicketBookingSystem.Tests\BusTicketBookingSystem.Web.Tests.csproj", "{D503AB7D-0811-4248-8C07-954F83655775}"
 EndProject

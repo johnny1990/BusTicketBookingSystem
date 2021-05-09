@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BusTicketBookingSystem.Entities.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BusTicketBookingSystem.Entities.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfDriver">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Driver" nillable="true" type="tns:Driver" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDriver" nillable="true" type="tns:ArrayOfDriver" />
+  <xs:complexType name="Driver">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Buses" nillable="true" type="tns:ArrayOfBus" />
+      <xs:element minOccurs="0" name="DriverId" type="xs:int" />
+      <xs:element minOccurs="0" name="DriverLicence" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsAvailable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SerialNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Driver" nillable="true" type="tns:Driver" />
+  <xs:complexType name="ArrayOfBus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Bus" nillable="true" type="tns:Bus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBus" nillable="true" type="tns:ArrayOfBus" />
+  <xs:complexType name="Bus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BusId" type="xs:int" />
+      <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
+      <xs:element minOccurs="0" name="DriverId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NrReg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NrSeats" type="xs:int" />
+      <xs:element minOccurs="0" name="Seats" nillable="true" type="tns:ArrayOfSeat" />
+      <xs:element minOccurs="0" name="Tours" nillable="true" type="tns:ArrayOfTour" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Bus" nillable="true" type="tns:Bus" />
+  <xs:complexType name="ArrayOfSeat">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Seat" nillable="true" type="tns:Seat" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSeat" nillable="true" type="tns:ArrayOfSeat" />
+  <xs:complexType name="Seat">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Bus" nillable="true" type="tns:Bus" />
+      <xs:element minOccurs="0" name="BusId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsAvailable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Passenger" nillable="true" type="tns:Passenger" />
+      <xs:element minOccurs="0" name="PassengerId" type="xs:int" />
+      <xs:element minOccurs="0" name="SeatNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="Time" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Seat" nillable="true" type="tns:Seat" />
+  <xs:complexType name="Passenger">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Blocked" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seats" nillable="true" type="tns:ArrayOfSeat" />
+      <xs:element minOccurs="0" name="Tickets" nillable="true" type="tns:ArrayOfTicket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Passenger" nillable="true" type="tns:Passenger" />
+  <xs:complexType name="ArrayOfTicket">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTicket" nillable="true" type="tns:ArrayOfTicket" />
+  <xs:complexType name="Ticket">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BookingTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsBlocked" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Passenger" nillable="true" type="tns:Passenger" />
+      <xs:element minOccurs="0" name="Passenger_Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tour" nillable="true" type="tns:Tour" />
+      <xs:element minOccurs="0" name="Trip_Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Ticket" nillable="true" type="tns:Ticket" />
+  <xs:complexType name="Tour">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Arrival" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Bus" nillable="true" type="tns:Bus" />
+      <xs:element minOccurs="0" name="BusId" type="xs:int" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="tns:City" />
+      <xs:element minOccurs="0" name="CityId" type="xs:int" />
+      <xs:element minOccurs="0" name="Departure" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Reservations" nillable="true" type="tns:ArrayOfReservation" />
+      <xs:element minOccurs="0" name="SeatsAvailable" type="xs:int" />
+      <xs:element minOccurs="0" name="Tickets" nillable="true" type="tns:ArrayOfTicket" />
+      <xs:element minOccurs="0" name="TourDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TourId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Tour" nillable="true" type="tns:Tour" />
+  <xs:complexType name="City">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CityId" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tours" nillable="true" type="tns:ArrayOfTour" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="City" nillable="true" type="tns:City" />
+  <xs:complexType name="ArrayOfTour">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Tour" nillable="true" type="tns:Tour" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTour" nillable="true" type="tns:ArrayOfTour" />
+  <xs:complexType name="ArrayOfReservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Reservation" nillable="true" type="tns:Reservation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReservation" nillable="true" type="tns:ArrayOfReservation" />
+  <xs:complexType name="Reservation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ReservationDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ReservationId" type="xs:int" />
+      <xs:element minOccurs="0" name="Tour" nillable="true" type="tns:Tour" />
+      <xs:element minOccurs="0" name="TourId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Reservation" nillable="true" type="tns:Reservation" />
+</xs:schema>

@@ -21,27 +21,46 @@ namespace BusTicketBookingSystem.Controllers
             repository = objIrepository;
         }
 
-        private TicketBookingModelEntities db = new TicketBookingModelEntities();
+        DriversServiceReference.DriversServiceClient srv = new DriversServiceReference.DriversServiceClient();
 
         // GET: Drivers
         public ActionResult Index()
         {
-            return View(repository.All.ToList());
+            List<Driver> lstRecord = new List<Driver>();
+
+            var lst = srv.GetAllDrivers();
+
+            foreach (var item in lst)
+            {
+                Driver usr = new Driver();
+                usr.DriverId = item.DriverId;
+                usr.Name = item.Name;
+                usr.SerialNumber = item.SerialNumber;
+                usr.DriverLicence = item.DriverLicence;
+                usr.PhoneNumber = item.PhoneNumber;
+                usr.EmailAddress = item.EmailAddress;
+                usr.IsAvailable = item.IsAvailable;
+                lstRecord.Add(usr);
+            }
+
+            return View(lstRecord);
         }
 
         // GET: Drivers/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Driver driver = repository.Find(id);
+            Driver driver = srv.GetDriverById(id);
             if (driver == null)
             {
                 return HttpNotFound();
             }
             return View(driver);
+            
         }
 
         // GET: Drivers/Create
@@ -59,12 +78,20 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Insert(driver);
-                repository.Save();
+                Driver usr = new Driver();
+                usr.DriverId = driver.DriverId;
+                usr.Name = driver.Name;
+                usr.SerialNumber = driver.SerialNumber;
+                usr.DriverLicence = driver.DriverLicence;
+                usr.PhoneNumber = driver.PhoneNumber;
+                usr.EmailAddress = driver.EmailAddress;
+                usr.IsAvailable = driver.IsAvailable;
+                srv.AddDriver(usr.Name, usr.SerialNumber, usr.DriverLicence, usr.PhoneNumber, usr.EmailAddress, usr.IsAvailable);
                 return RedirectToAction("Index");
             }
 
             return View(driver);
+            
         }
 
         // GET: Drivers/Edit/5
