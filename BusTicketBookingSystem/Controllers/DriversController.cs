@@ -49,7 +49,6 @@ namespace BusTicketBookingSystem.Controllers
         // GET: Drivers/Details/5
         public ActionResult Details(int id)
         {
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -95,13 +94,13 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Drivers/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Driver driver = repository.Find(id);
+            Driver driver = srv.GetDriverById(id);
             if (driver == null)
             {
                 return HttpNotFound();
@@ -118,21 +117,34 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Update(driver);
-                repository.Save();
-                return RedirectToAction("Index");
+                Driver usr = new Driver();
+                usr.DriverId = driver.DriverId;
+                usr.Name = driver.Name;
+                usr.SerialNumber = driver.SerialNumber;
+                usr.DriverLicence = driver.DriverLicence;
+                usr.PhoneNumber = driver.PhoneNumber;
+                usr.EmailAddress = driver.EmailAddress;
+                usr.IsAvailable = driver.IsAvailable;
+
+
+                int val = srv.UpdateDriver(usr.DriverId, usr.Name, usr.SerialNumber, usr.DriverLicence, usr.PhoneNumber, usr.EmailAddress, usr.IsAvailable);
+                if (val > 0)
+                {
+                    return RedirectToAction("Index");
+                }
             }
+          
             return View(driver);
         }
 
         // GET: Drivers/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Driver driver = repository.Find(id);
+            Driver driver = srv.GetDriverById(id);
             if (driver == null)
             {
                 return HttpNotFound();
@@ -144,10 +156,18 @@ namespace BusTicketBookingSystem.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {          
-            repository.Delete(id);
-            repository.Save();
-            return RedirectToAction("Index");
+        {
+            //repository.Delete(id);
+            //repository.Save();
+            //return RedirectToAction("Index");
+
+            int val = srv.DeleteDriverById(id);
+            if (val > 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         protected override void Dispose(bool disposing)
