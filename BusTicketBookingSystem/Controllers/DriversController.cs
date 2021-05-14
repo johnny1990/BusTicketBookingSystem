@@ -157,10 +157,6 @@ namespace BusTicketBookingSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //repository.Delete(id);
-            //repository.Save();
-            //return RedirectToAction("Index");
-
             int val = srv.DeleteDriverById(id);
             if (val > 0)
             {
