@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f8ac236c-ec6a-46bf-be2c-7047215e2847" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:61125/PassengersService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PassengersService.wsdl" MetadataType="Wsdl" ID="8943f363-539b-4f36-a17f-ce7765902924" SourceId="1" SourceUrl="http://localhost:61125/PassengersService.svc?wsdl" />
+    <MetadataFile FileName="PassengersService.xsd" MetadataType="Schema" ID="75bbc25d-33c9-4f87-84d3-63f006c531e6" SourceId="1" SourceUrl="http://localhost:61125/PassengersService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PassengersService.disco" MetadataType="Disco" ID="67466394-a26e-4ddc-9bf9-03ae8e8b194d" SourceId="1" SourceUrl="http://localhost:61125/PassengersService.svc?disco" />
+    <MetadataFile FileName="PassengersService1.xsd" MetadataType="Schema" ID="2f60ee1a-d11d-48c9-8533-b6f07732c593" SourceId="1" SourceUrl="http://localhost:61125/PassengersService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PassengersService2.xsd" MetadataType="Schema" ID="848a18d7-0552-468d-a1bb-f295f2d1000a" SourceId="1" SourceUrl="http://localhost:61125/PassengersService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

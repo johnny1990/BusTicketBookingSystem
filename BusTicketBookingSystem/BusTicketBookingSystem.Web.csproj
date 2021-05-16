@@ -188,6 +188,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Connected Services\PassengersServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -221,6 +226,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\PassengersServiceReference\PassengersService.disco" />
+    <None Include="Connected Services\PassengersServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\PassengersServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\PassengersServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -243,6 +255,17 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Properties\DataSources\BusTicketBookingSystem.Entities.Models.Driver.datasource" />
+    <None Include="Connected Services\PassengersServiceReference\PassengersService.wsdl" />
+    <None Include="Connected Services\PassengersServiceReference\PassengersService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PassengersServiceReference\PassengersService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PassengersServiceReference\PassengersService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Properties\DataSources\BusTicketBookingSystem.Entities.Models.Passenger.datasource" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Bus\DeleteBus.js" />
     <Content Include="Scripts\Bus\InsertBus.js" />
@@ -373,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\DriversServiceReference\" />
+    <WCFMetadataStorage Include="Connected Services\PassengersServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
