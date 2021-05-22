@@ -22,25 +22,39 @@ namespace BusTicketBookingSystem.Controllers
             repository = objIrepository;
         }
 
+        PassengersServiceReference.PassengersServiceClient srv = new PassengersServiceReference.PassengersServiceClient();
+
         // GET: Passengers
         public ActionResult Index()
         {
-            return View(repository.All.ToList());
+            List<Passenger> lstRecord = new List<Passenger>();
+            var lst = srv.GetAllPassengers();
+
+            foreach (var item in lst)
+            {
+                Passenger p = new Passenger();
+                p.Id = item.Id;
+                p.Name = item.Name;
+                p.Blocked = p.Blocked;
+                lstRecord.Add(p);
+            }
+
+            return View(lstRecord);
         }
 
         // GET: Passengers/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Passenger passenger = repository.Find(id);
-            if (passenger == null)
+            Passenger pass = srv.GetPassengerById(id);
+            if (pass == null)
             {
                 return HttpNotFound();
             }
-            return View(passenger);
+            return View(pass);
         }
 
         // GET: Passengers/Create
@@ -58,8 +72,11 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Insert(passenger);
-                repository.Save();
+                Passenger p = new Passenger();
+                p.Id = passenger.Id;
+                p.Name = passenger.Name;
+                p.Blocked = passenger.Blocked;
+                srv.AddPassenger(p.Name, p.Blocked);
                 return RedirectToAction("Index");
             }
 
@@ -67,18 +84,18 @@ namespace BusTicketBookingSystem.Controllers
         }
 
         // GET: Passengers/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Passenger passenger = repository.Find(id);
-            if (passenger == null)
+            Passenger pass = srv.GetPassengerById(id);
+            if (pass == null)
             {
                 return HttpNotFound();
             }
-            return View(passenger);
+            return View(pass);
         }
 
         // POST: Passengers/Edit/5
@@ -90,26 +107,34 @@ namespace BusTicketBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.Update(passenger);
-                repository.Save();
-                return RedirectToAction("Index");
+                Passenger p = new Passenger();
+                p.Id = passenger.Id;
+                p.Name = passenger.Name;
+                p.Blocked = passenger.Blocked;
+
+                int val = srv.UpdatePassenger(p.Id, p.Name, p.Blocked);
+                if (val > 0)
+                {
+                    return RedirectToAction("Index");
+                }
             }
+
             return View(passenger);
         }
 
         // GET: Passengers/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Passenger passenger = repository.Find(id);
-            if (passenger == null)
+            Passenger pass = srv.GetPassengerById(id);
+            if (pass == null)
             {
                 return HttpNotFound();
             }
-            return View(passenger);
+            return View(pass);
         }
 
         // POST: Passengers/Delete/5
@@ -117,10 +142,13 @@ namespace BusTicketBookingSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Passenger passenger = repository.Find(id);
-            repository.Delete(id);
-            repository.Save();
-            return RedirectToAction("Index");
+            int val = srv.DeletePassengerById(id);
+            if (val > 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         protected override void Dispose(bool disposing)
